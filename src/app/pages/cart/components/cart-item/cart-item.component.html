@@ -1,0 +1,44 @@
+<ng-container *ngIf="cartProduct">
+
+  <div class='cart-item'>
+    <div class='cart-item__title-image'>
+      <img
+        [src]="cartProduct.images[0]"
+        [alt]="cartProduct.title"
+        class='cart-item__image'
+      />
+      <div class='cart-item__title'>{{cartProduct.title}}</div>
+    </div>
+    <div class='cart-item__price'>${{cartProduct.price}} x</div>
+    <div class='cart-item__counts'>
+      <app-button
+        class="product__button"
+        [size]="'icon'"
+        [color]="'secondary'"
+        (click)="decrementCartProduct(cartProduct.id)"
+      >
+        -
+      </app-button>
+      <span class='cart-item__count-input'>{{ cartProduct.productCount }}</span>
+      <app-button
+        class="product__button"
+        [size]="'icon'"
+        [color]="'secondary'"
+        (click)="incrementCartProduct(cartProduct.id)"
+      >
+        +
+      </app-button>
+    </div>
+    <div class='cart-item__total-price'>${{cartProductTotalPrice}}</div>
+      <app-button
+      class="cart-item__button cart-item__button-delete"
+      [size]="'medium'"
+      [color]="'secondary'"
+      (click)="deleteCartProduct(cartProduct.id)"
+    >
+      Delete
+    </app-button>
+  </div>
+</ng-container>
+
+

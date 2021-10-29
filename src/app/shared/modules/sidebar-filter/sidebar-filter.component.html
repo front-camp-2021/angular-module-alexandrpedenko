@@ -1,0 +1,59 @@
+<div class="filter">
+  <div class="filter__header">
+    <h3 class="filter__header-title">Filters</h3>
+    <app-button [icon]="'chevronsRight'" [size]="'icon'" [color]="'white'"></app-button>
+  </div>
+  <div class="filter__body">
+    <form [formGroup]="form">
+
+      <div class='filter__item'>
+        <h5 class='filter__item-title'>Price</h5>
+        <app-range-slider
+          [currMinValue]="priceRangeMinSelected"
+          [currMaxValue]="priceRangeMaxSelected"
+          [sliderMinValue]="0"
+          [sliderMaxValue]="85000"
+          [sliderStep]="50"
+          (changed)="priceSliderWasChanged($event)"
+        ></app-range-slider>
+      </div>
+
+      <div class="filter__item">
+        <h5 class="filter__item-title">Brand</h5>
+        <app-checkboxes
+          formControlName="brand"
+          [itemsObservable]="brands$"
+          [checkedItems]="brandsChecked"
+          (changed)="controlWasChanged()"
+        ></app-checkboxes>
+      </div>
+
+      <div class='filter__item'>
+        <h5 class='filter__item-title'>Rating</h5>
+        <app-range-slider
+          [currMinValue]="ratingRangeMinSelected"
+          [currMaxValue]="ratingRangeMaxSelected"
+          [sliderMinValue]="0"
+          [sliderMaxValue]="5"
+          [sliderStep]="0.5"
+          (changed)="ratingSliderWasChanged($event)"
+        ></app-range-slider>
+      </div>
+
+      <div class="filter__item">
+        <h5 class="filter__item-title">Category</h5>
+        <app-checkboxes
+          formControlName="category"
+          [itemsObservable]="categories$"
+          [checkedItems]="categoriesChecked"
+          (changed)="controlWasChanged()"
+        ></app-checkboxes>
+      </div>
+
+    </form>
+  </div>
+  <app-button [size]="'responsive'" [color]="'primary'" (click)="resetAllFilters()" class="filter__clearButton">
+    Clear all filters
+  </app-button>
+
+</div>

@@ -1,0 +1,74 @@
+@import '~styles/vars.scss';
+@import '~styles/mixins.scss';
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+
+    &-title {
+      @include text-format(normal, normal, 18px, 21px);
+    }
+  }
+
+  &__body {
+    flex-grow: 1;
+    margin-bottom: 28px;
+    width: 100%;
+    padding: 20px 48px;
+    background: $white;
+    box-shadow: $box_shadow;
+    border-radius: $border_radius;
+  }
+
+  &__clearButton {
+    height: 56px;
+    font-family: $main_font;
+    @include text-format(normal, normal, 18px, 21px);
+    box-shadow: $box_shadow;
+    border-radius: $border_radius;
+    overflow: hidden;
+
+    button.button {
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
+
+.filter {
+  &__item {
+    width: 100%;
+    max-width: 378px;
+    padding-bottom: 38px;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #d6d6d6;
+    }
+
+    &:not(:first-child) {
+      padding-top: 34px;
+    }
+
+    &-title {
+      margin-bottom: 26px;
+      @include text-format(normal, 600, 18px, 22px);
+    }
+  }
+}
+
+/* Media Query */
+@media screen and (max-width: 1200px) {
+  .filter {
+    &__body,
+    &__clearButton {
+      display: none;
+    }
+  }
+}

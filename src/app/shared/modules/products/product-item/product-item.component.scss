@@ -1,0 +1,105 @@
+@import '~styles/vars';
+@import '~styles/mixins';
+
+.product {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  background-color: $white;
+  box-shadow: $box_shadow;
+  border-radius: $border_radius;
+  overflow: hidden;
+
+  &__image-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-grow: 1;
+    height: 300px;
+    padding: 10px 10px 10px 10px;
+  }
+
+  &__image {
+    display: block;
+    max-width: 100%;
+    height: 100%;
+  }
+
+  &__rating-price {
+    display: flex;
+    justify-content: space-between;
+    height: 30px;
+    padding: 0 24px;
+  }
+
+  &__rating {
+    display: flex;
+    align-items: flex-end;
+    padding: 6px 10px;
+    @include text-format(normal, normal, 14px, 17px);
+    color: #fff;
+    background: $primary;
+    border-radius: 3px;
+  }
+
+  &__rating-text {
+    display: flex;
+    align-items: center;
+
+    &:after {
+      content: '';
+      margin-left: 10px;
+      display: inline-block;
+      height: 14px;
+      width: 14px;
+      background: url('~assets/images/icons/star.svg') no-repeat 50% 50%;
+      background-size: cover;
+    }
+  }
+
+  &__price {
+    flex-grow: 1;
+    @include text-format(normal, normal, 18px, 21px);
+    text-align: right;
+    color: $text_color;
+  }
+
+  &__info {
+    padding: 16px 24px;
+  }
+
+  &__name {
+    font-weight: normal;
+    @include text-format(normal, normal, 164px, 19px);
+    font-size: 16px;
+    line-height: 19px;
+    color: $text_color;
+  }
+
+  &__description {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    @include text-format(normal, 300, 12px, 14px);
+  }
+
+  &__buttons {
+    display: flex;
+  }
+
+  &__button {
+    flex: 0 0 50%;
+    height: 45px;
+  }
+}
+
+/* Media Query */
+@media screen and (max-width: 480px) {
+  .product {
+    max-width: 100%;
+  }
+}

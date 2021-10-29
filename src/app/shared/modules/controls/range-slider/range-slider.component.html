@@ -1,0 +1,8 @@
+<div class="slider-form">
+  <ngx-slider
+    [(value)]="currMinValue"
+    [(highValue)]="currMaxValue"
+    [options]="options"
+    (userChangeEnd)="onUserChangeEnd($event)"
+  ></ngx-slider>
+</div>

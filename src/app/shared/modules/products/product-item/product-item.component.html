@@ -1,0 +1,51 @@
+<div class='product'>
+  <div class='product__image-wrapper'>
+    <img class='product__image' [src]="product.images[0]" [alt]="product.title" />
+  </div>
+  <div class='product__rating-price'>
+    <div class='product__rating'>
+      <span class='product__rating-text'>{{product.rating}}</span>
+    </div>
+    <span class='product__price'>${{product.price}}</span>
+  </div>
+  <div class='product__info'>
+    <h3 class='product__name'>{{product.title}}</h3>
+    <span class='product__description'>
+      <span class='product__category'>{{product.category}}</span>
+      <span class='product__brand'>{{product.brand}}</span>
+    </span>
+  </div>
+  <div class='product__buttons'>
+    <app-button
+      class="product__button"
+      [icon]="'heart'"
+      [size]="'responsive'"
+      [color]="'secondary'"
+      (click)="addToFavorites(product.id)"
+      *ngIf="!(favoritesIdList$ | async)?.includes(product.id)"
+    >
+      Wishlist
+    </app-button>
+
+    <app-button
+      class="product__button"
+      [icon]="'heart'"
+      [size]="'responsive'"
+      [color]="'secondary'"
+      (click)="removeFromFavorites(product.id)"
+      *ngIf="(favoritesIdList$ | async)?.includes(product.id)"
+    >
+      Unfavourite
+    </app-button>
+
+    <app-button
+      class="product__button"
+      [icon]="'shoppingBag'"
+      [size]="'responsive'"
+      [color]="'primary'"
+      (click)="addToCart(product.id)"
+    >
+      Add to cart
+    </app-button>
+  </div>
+</div>

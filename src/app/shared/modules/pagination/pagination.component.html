@@ -1,0 +1,16 @@
+
+<div class='pagination'>
+  <div class="pagination__items">
+    <ng-container *ngFor="let page of pages">
+      <a
+        class="pagination__item-link"
+        [ngClass]="{ active: currentPageProps === page }"
+        [routerLink]="urlProps"
+        [queryParams]="{page: page}"
+        queryParamsHandling="merge"
+      >
+        {{ page }}
+      </a>
+    </ng-container>
+  </div>
+</div>

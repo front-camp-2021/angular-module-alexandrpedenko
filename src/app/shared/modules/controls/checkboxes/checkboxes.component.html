@@ -1,0 +1,16 @@
+<div class="checkboxes">
+  <div *ngFor="let item of checkboxItems" classs="checkboxes__item-group">
+    <input
+      type="checkbox"
+      class="checkboxes__item-checkbox"
+      [id]="item.value"
+      [value]="item.value"
+      [attr.disabled]="isDisabled ? true : null"
+      [checked]="isChecked(item.value)"
+      (change)="onChanged(item.value, $event)"
+    />
+    <label class="checkboxes__item-label" [class.checkbox_disabled]="isDisabled" [for]="item.value">
+      {{ item.label }}
+    </label>
+  </div>
+</div>

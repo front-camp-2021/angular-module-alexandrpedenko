@@ -1,0 +1,4 @@
+<button class="button {{ sizeCssClasses }} {{ colorCssClasses }}" [type]="type">
+  <img [src]="iconUrl" [alt]="icon" *ngIf="icon" />
+  <ng-content></ng-content>
+</button>

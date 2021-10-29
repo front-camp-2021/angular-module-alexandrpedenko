@@ -1,0 +1,71 @@
+
+
+
+<div class="category">
+  <div class="category__row">
+    <aside class="category__sidebar">
+      <app-sidebar-filter></app-sidebar-filter>
+    </aside>
+    <main class="category__main">
+
+      <div class='search'>
+        <div class='search__results'>
+          <span class='search__results-text' *ngIf="productsCount$ | async">
+            {{ productsCount$ | async }} results found
+          </span>
+          <div class="search__buttons">
+            <div class="search__buttons-wrapper">
+              <app-button
+                [icon]="'heartWhite'"
+                [size]="'icon'"
+                [color]="'primary'"
+                (click)="navigateToFavorites()"
+              >
+              </app-button>
+              <span
+                class='search__buttons-count'
+                *ngIf="(favoritesIdList$ | async)?.length"
+              >
+                {{(favoritesIdList$ | async)?.length}}
+              </span>
+            </div>
+            <div class="search__buttons-wrapper">
+              <app-button
+                [icon]="'shoppingBag'"
+                [size]="'icon'"
+                [color]="'primary'"
+                (click)="navigateToCart()"
+              >
+              </app-button>
+              <span
+                class='search__buttons-count'
+                *ngIf="(cartIdList$ | async)?.length"
+              >
+                {{(cartIdList$ | async)?.length}}
+              </span>
+            </div>
+          </div>
+        </div>
+        <app-search (changed)="searchWasChanged($event)"></app-search>
+      </div>
+
+      <div *ngIf="isLoading$ | async">Loading ...</div>
+      <div *ngIf="(products$ | async)?.length === 0" class="not-found">
+        <h1>Products not found</h1>
+      </div>
+
+      <ng-container *ngIf="products$ | async as products">
+        <app-products-list [productsList]="products"  ></app-products-list>
+      </ng-container>
+
+    </main>
+  </div>
+</div>
+<ng-container *ngIf="productsCount$ | async">
+  <app-pagination
+    [totalObservable]="productsCount$"
+    [limit]="limit"
+    [url]="baseUrl"
+    [currentPage]="currentPage"
+  ></app-pagination>
+</ng-container>

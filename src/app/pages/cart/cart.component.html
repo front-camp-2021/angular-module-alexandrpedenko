@@ -1,0 +1,17 @@
+<div class='full-width'>
+  <div class='full-width__row'>    <main class='full-width__main'>
+      <h1>Cart</h1>
+      <div class='cart'>
+        <ng-container *ngFor="let cartProduct of cartProducts">
+          <app-cart-item [cartProduct]="cartProduct"></app-cart-item>
+        </ng-container>
+
+        <h3 *ngIf="cartProducts.length < 1">Not products in your cart</h3>
+      </div>
+      <div class='cart-total-price'>
+        <div class='cart-total-price__title'>Total Cart Price</div>
+        <div class='cart-total-price__price'>{{cartTotal}}</div>
+      </div>
+    </main>
+  </div>
+</div>
