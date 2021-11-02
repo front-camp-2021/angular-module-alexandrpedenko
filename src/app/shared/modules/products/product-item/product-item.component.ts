@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 import { ProductInterface } from '@app/models/backend';
 import {
@@ -8,7 +8,6 @@ import {
   removeFromFavoritesAction
 } from '@app/pages/favorites/store/actions/favorites.actions';
 import { favoritesIdListSelector } from '@app/pages/favorites/store/selectors';
-import { PersistenceService } from '@app/shared/services/presistence.service';
 import { FavoritesService } from '@app/pages/favorites/services/favorites.service';
 import {
   addToCartAction,
@@ -17,14 +16,16 @@ import {
 } from '@app/pages/cart/store/actions/cart.actions';
 import { CartService } from '@app/pages/cart/services/cart.service';
 import { cartIdListSelector } from '@app/pages/cart/store/selectors';
-import { map } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-item',
   templateUrl: './product-item.component.html',
   styleUrls: ['./product-item.component.scss']
 })
-export class ProductItemComponent implements OnInit {
+export class ProductItemComponent implements OnInit, OnDestroy {
+  private destroy = new Subject<any>();
+
   @Input() product: ProductInterface = {
     id: '',
     images: [],
@@ -49,11 +50,16 @@ export class ProductItemComponent implements OnInit {
     this.favoritesIdList$ = this.store.pipe(select(favoritesIdListSelector));
     this.cartIdList$ = this.store.pipe(select(cartIdListSelector));
 
-    this.cartIdList$.subscribe((idList) => {
+    this.cartIdList$.pipe(takeUntil(this.destroy)).subscribe((idList) => {
       if (idList !== null) {
         this.cartIdList = idList;
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.destroy.next();
+    this.destroy.complete();
   }
 
   addToCart(productId: string) {

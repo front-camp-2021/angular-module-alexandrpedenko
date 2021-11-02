@@ -1,6 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
@@ -8,17 +8,18 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
+  private destroy = new Subject<any>();
   private subject: Subject<string> = new Subject();
+
   value: string = '';
   queryParamsSubscription?: Subscription;
-
   @Output() changed = new EventEmitter<string>();
 
   constructor(private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.subject.pipe(debounceTime(1500)).subscribe((searchTextValue) => {
+    this.subject.pipe(debounceTime(1500), takeUntil(this.destroy)).subscribe((searchTextValue) => {
       this.handleSearch(searchTextValue);
     });
 
@@ -30,6 +31,12 @@ export class SearchComponent implements OnInit {
         this.value = params.q;
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.queryParamsSubscription?.unsubscribe();
+    this.destroy.next();
+    this.destroy.complete();
   }
 
   handleSearch(searchValue: string) {

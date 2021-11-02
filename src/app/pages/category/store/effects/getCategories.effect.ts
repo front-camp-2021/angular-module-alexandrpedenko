@@ -5,11 +5,6 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { CategoryService } from '@app/pages/category/services/category.service';
 import {
-  getBrandsAction,
-  getBrandsErrorAction,
-  getBrandsSuccessAction
-} from '@app/pages/category/store/actions/getBrands.actions';
-import {
   getCategoriesAction,
   getCategoriesErrorAction,
   getCategoriesSuccessAction

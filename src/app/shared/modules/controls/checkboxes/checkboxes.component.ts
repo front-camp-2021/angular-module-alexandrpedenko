@@ -1,10 +1,18 @@
-import { Component, OnInit, Input, Output, EventEmitter, forwardRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  forwardRef,
+  OnDestroy
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 import { ControlItem, Value } from '@app/models/frontend';
 import { BrandType, CategoryType } from '@app/models/backend';
 import { UtilsService } from '@app/shared/services/utils.service';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
@@ -19,8 +27,9 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
     }
   ]
 })
-export class CheckboxesComponent implements OnInit, ControlValueAccessor {
-  // @Input() items: ControlItem[] = [];
+export class CheckboxesComponent implements OnInit, ControlValueAccessor, OnDestroy {
+  private destroy = new Subject<any>();
+
   @Input('itemsObservable') totalObservableProps?: Observable<BrandType[] | CategoryType[] | null>;
   @Input() checkedItems: BrandType[] | CategoryType[] | null = [];
   @Output() changed = new EventEmitter<Value[]>();
@@ -49,6 +58,12 @@ export class CheckboxesComponent implements OnInit, ControlValueAccessor {
         this.value = [];
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.queryParamsSubscription?.unsubscribe();
+    this.destroy.next();
+    this.destroy.complete();
   }
 
   private propagateChange: any = () => {};

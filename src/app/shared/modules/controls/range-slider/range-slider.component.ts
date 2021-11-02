@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Options, LabelType, ChangeContext, PointerType } from '@angular-slider/ngx-slider';
+import { Options, LabelType, ChangeContext } from '@angular-slider/ngx-slider';
 
 export interface RangeSliderResponse {
   min: number;

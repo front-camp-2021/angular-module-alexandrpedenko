@@ -4,9 +4,11 @@
       <div class='favorites'>
         <div class='product-list'>
           <div *ngIf="isLoading$ | async">Loading ...</div>
+
           <div *ngIf="(products$ | async)?.length === 0" class="not-found">
             <h1>Products not found</h1>
           </div>
+
           <ng-container *ngIf="products$ | async as products">
             <app-products-list [productsList]="products"  ></app-products-list>
           </ng-container>

@@ -21,22 +21,9 @@ a {
   text-decoration: none;
 }
 
-.wrapper {
-  max-width: 1920px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 30px 40px 30px;
-}
-
 .not-found {
   padding: 20px 15px;
   font-size: 30px;
   color: $primary_text;
 }
 
-/* Media Query */
-@media screen and (max-width: 480px) {
-  .wrapper {
-    padding: 0 15px;
-  }
-}

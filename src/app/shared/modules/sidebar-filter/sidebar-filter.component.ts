@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 
@@ -18,12 +18,11 @@ import { RangeSliderResponse } from '@app/shared/modules/controls/range-slider/r
   templateUrl: './sidebar-filter.component.html',
   styleUrls: ['./sidebar-filter.component.scss']
 })
-export class SidebarFilterComponent implements OnInit {
+export class SidebarFilterComponent implements OnInit, OnDestroy {
   form: FormGroup;
   brands: ControlItem[] = [];
   brandsChecked: string[] = [];
   categoriesChecked: string[] = [];
-
   priceRangeMinSelected: number = 0;
   priceRangeMaxSelected: number = 85000;
   ratingRangeMinSelected: number = 0;
@@ -60,6 +59,10 @@ export class SidebarFilterComponent implements OnInit {
     this.initializeValues();
   }
 
+  ngOnDestroy(): void {
+    this.queryParamsSubscription?.unsubscribe();
+  }
+
   initializeValues(): void {
     this.brands$ = this.store.pipe(select(categoryBrandsSelector));
     this.categories$ = this.store.pipe(select(categoryCategoriesSelector));
@@ -67,7 +70,6 @@ export class SidebarFilterComponent implements OnInit {
     this.queryParamsSubscription = this.route.queryParams.subscribe((params: Params) => {
       this.brandsChecked = params.brand ? params.brand.split(',') : null;
       this.categoriesChecked = params.category ? params.category.split(',') : null;
-
       this.priceRangeMinSelected = params.price_gte ? parseInt(params.price_gte) : 0;
       this.priceRangeMaxSelected = params.price_lte ? parseInt(params.price_lte) : 85000;
       this.ratingRangeMinSelected = params.rating_gte ? parseFloat(params.rating_gte) : 0;

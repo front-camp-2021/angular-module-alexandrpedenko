@@ -1,4 +1,4 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import { CartStateInterface } from '@app/pages/cart/types/cartState.interface';
 import {
   addToCartAction,
