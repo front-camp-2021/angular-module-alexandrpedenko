@@ -1,0 +1,13 @@
+.wrapper {
+  max-width: 1920px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 30px 40px 30px;
+}
+
+/* Media Query */
+@media screen and (max-width: 480px) {
+  .wrapper {
+    padding: 0 15px;
+  }
+}

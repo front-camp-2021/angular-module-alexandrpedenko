@@ -1,0 +1,20 @@
+@import "~styles/mixins";
+@import "~styles/vars";
+
+.header {
+  padding: 30px 15px;
+
+  &__logo {
+    display: inline-flex;
+    align-items: center;
+
+    &-img {
+      margin-right: 22px;
+    }
+
+    &-text {
+      color: $primary_text;
+      @include text-format(normal, 600, 48px, 27px);
+    }
+  }
+}

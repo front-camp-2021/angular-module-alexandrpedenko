@@ -1,0 +1,25 @@
+@import '~styles/vars.scss';
+
+::ng-deep {
+  .slider-form .ngx-slider .ngx-slider-pointer {
+    background-color: $primary;
+
+    &::after {
+      transition: transform .3s ease;
+    }
+
+    &:focus-visible {
+      outline: 0;
+
+      &::after {
+        transform: scale(2);
+        background-color: #fff;
+      }
+    }
+  }
+
+  .slider-form .ngx-slider .ngx-slider-selection {
+    background-color: $primary
+  }
+}
+
